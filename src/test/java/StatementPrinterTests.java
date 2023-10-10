@@ -18,8 +18,8 @@ public class StatementPrinterTests {
                 new Performance(new Play("Vincent le médisant", "comedy"), 5),
                 new Performance(new Play("Dernière Fantaisie 15", "tragedy"), 15)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice);
+        StatementPrinter statementPrinter = new StatementPrinter(invoice);
+        var result = statementPrinter.print();
 
         verify(result);
     }
@@ -30,9 +30,7 @@ public class StatementPrinterTests {
                 new Performance(new Play("Henry V", "history"), 53),
                 new Performance(new Play("As You Like It", "pastoral"), 55)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        Assertions.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice);
-        });
+        StatementPrinter statementPrinter = new StatementPrinter(invoice);
+        Assertions.assertThrows(Error.class, statementPrinter::print);
     }
 }

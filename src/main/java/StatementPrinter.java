@@ -2,21 +2,25 @@ import java.text.NumberFormat;
 import java.util.*;
 
 public class StatementPrinter {
+  private Invoice invoice;
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
 
 
-  public String print(Invoice invoice) {
+  public StatementPrinter(Invoice invoice) {
+    this.invoice = invoice;
+  }
+  public String print() {
     float totalAmount = 0;
     int volumeCredits = 0;
     StringBuilder sb = new StringBuilder();
     sb.append("Statement for ");
-    sb.append(invoice.customer);
+    sb.append(this.invoice.customer);
     sb.append("\n");
 
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
-    for (Performance perf : invoice.performances) {
+    for (Performance perf : this.invoice.performances) {
       Play play = perf.play;
       float thisAmount = 0;
 
