@@ -16,11 +16,15 @@ public class StatementPrinterTests {
         plays.put("hamlet",  new Play("Hamlet", "tragedy"));
         plays.put("as-like",  new Play("As You Like It", "comedy"));
         plays.put("othello",  new Play("Othello", "tragedy"));
+        plays.put("vincent",  new Play("Vincent le médisant", "comedy"));
+        plays.put("noctis",  new Play("Dernière Fantaisie 15", "tragedy"));
 
         Invoice invoice = new Invoice("BigCo", List.of(
                 new Performance("hamlet", 55),
                 new Performance("as-like", 35),
-                new Performance("othello", 40)));
+                new Performance("othello", 40),
+                new Performance("vincent", 5),
+                new Performance("noctis", 15)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
         var result = statementPrinter.print(invoice, plays);
