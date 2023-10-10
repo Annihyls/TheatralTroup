@@ -3,22 +3,25 @@ import java.util.*;
 
 public class StatementPrinter {
   private Invoice invoice;
+  private StringBuilder sb;
+  private float totalAmount;
+  private int volumeCredits;
+  private NumberFormat frmt;
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
 
 
   public StatementPrinter(Invoice invoice) {
     this.invoice = invoice;
+    this.sb = new StringBuilder();
+    this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
+    this.totalAmount = 0;
+    this.volumeCredits = 0;
   }
   public String print() {
-    float totalAmount = 0;
-    int volumeCredits = 0;
-    StringBuilder sb = new StringBuilder();
-    sb.append("Statement for ");
-    sb.append(this.invoice.customer);
-    sb.append("\n");
-
-    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
+    this.sb.append("Statement for ");
+    this.sb.append(this.invoice.customer);
+    this.sb.append("\n");
 
     for (Performance perf : this.invoice.performances) {
       Play play = perf.play;
@@ -43,27 +46,27 @@ public class StatementPrinter {
       }
 
       // add volume credits
-      volumeCredits += Math.max(perf.audience - 30, 0);
+      this.volumeCredits += Math.max(perf.audience - 30, 0);
       // add extra credit for every ten comedy attendees
-      if (COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
+      if (COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);
 
       // print line for this order
-      sb.append("  ");
-      sb.append(play.name);
-      sb.append(": ");
-      sb.append(frmt.format(thisAmount));
-      sb.append(" (");
-      sb.append(perf.audience);
-      sb.append(" seats)\n");
-      totalAmount += thisAmount;
+      this.sb.append("  ");
+      this.sb.append(play.name);
+      this.sb.append(": ");
+      this.sb.append(this.frmt.format(thisAmount));
+      this.sb.append(" (");
+      this.sb.append(perf.audience);
+      this.sb.append(" seats)\n");
+      this.totalAmount += thisAmount;
     }
-    sb.append("Amount owed is ");
-    sb.append(frmt.format(totalAmount));
-    sb.append("\n");
-    sb.append("You earned ");
-    sb.append(volumeCredits);
-    sb.append(" credits\n");
-    return sb.toString();
+    this.sb.append("Amount owed is ");
+    this.sb.append(this.frmt.format(this.totalAmount));
+    this.sb.append("\n");
+    this.sb.append("You earned ");
+    this.sb.append(volumeCredits);
+    this.sb.append(" credits\n");
+    return this.sb.toString();
   }
 
 }

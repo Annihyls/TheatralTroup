@@ -3,67 +3,70 @@ import java.util.*;
 
 public class StatementPrinter {
   private Invoice invoice;
+  private StringBuilder sb;
+  private float totalAmount;
+  private int volumeCredits;
+  private NumberFormat frmt;
   public static final String TRAGEDY = &quot;tragedy&quot;;
   public static final String COMEDY = &quot;comedy&quot;;
 
 
-<span class="fc" id="L10">  public StatementPrinter(Invoice invoice) {</span>
-<span class="fc" id="L11">    this.invoice = invoice;</span>
-<span class="fc" id="L12">  }</span>
+<span class="fc" id="L14">  public StatementPrinter(Invoice invoice) {</span>
+<span class="fc" id="L15">    this.invoice = invoice;</span>
+<span class="fc" id="L16">    this.sb = new StringBuilder();</span>
+<span class="fc" id="L17">    this.frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
+<span class="fc" id="L18">    this.totalAmount = 0;</span>
+<span class="fc" id="L19">    this.volumeCredits = 0;</span>
+<span class="fc" id="L20">  }</span>
   public String print() {
-<span class="fc" id="L14">    float totalAmount = 0;</span>
-<span class="fc" id="L15">    int volumeCredits = 0;</span>
-<span class="fc" id="L16">    StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L17">    sb.append(&quot;Statement for &quot;);</span>
-<span class="fc" id="L18">    sb.append(this.invoice.customer);</span>
-<span class="fc" id="L19">    sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L22">    this.sb.append(&quot;Statement for &quot;);</span>
+<span class="fc" id="L23">    this.sb.append(this.invoice.customer);</span>
+<span class="fc" id="L24">    this.sb.append(&quot;\n&quot;);</span>
 
-<span class="fc" id="L21">    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">    for (Performance perf : this.invoice.performances) {</span>
+<span class="fc" id="L27">      Play play = perf.play;</span>
+<span class="fc" id="L28">      float thisAmount = 0;</span>
 
-<span class="fc bfc" id="L23" title="All 2 branches covered.">    for (Performance perf : this.invoice.performances) {</span>
-<span class="fc" id="L24">      Play play = perf.play;</span>
-<span class="fc" id="L25">      float thisAmount = 0;</span>
-
-<span class="fc bfc" id="L27" title="All 3 branches covered.">      switch (play.type) {</span>
+<span class="fc bfc" id="L30" title="All 3 branches covered.">      switch (play.type) {</span>
         case TRAGEDY:
-<span class="fc" id="L29">          thisAmount = 400;</span>
-<span class="fc bfc" id="L30" title="All 2 branches covered.">          if (perf.audience &gt; 30) {</span>
-<span class="fc" id="L31">            thisAmount += 10 * (perf.audience - 30);</span>
+<span class="fc" id="L32">          thisAmount = 400;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">          if (perf.audience &gt; 30) {</span>
+<span class="fc" id="L34">            thisAmount += 10 * (perf.audience - 30);</span>
           }
           break;
         case COMEDY:
-<span class="fc" id="L35">          thisAmount = 300;</span>
-<span class="fc bfc" id="L36" title="All 2 branches covered.">          if (perf.audience &gt; 20) {</span>
-<span class="fc" id="L37">            thisAmount += 100 + 5 * (perf.audience - 20);</span>
+<span class="fc" id="L38">          thisAmount = 300;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">          if (perf.audience &gt; 20) {</span>
+<span class="fc" id="L40">            thisAmount += 100 + 5 * (perf.audience - 20);</span>
           }
-<span class="fc" id="L39">          thisAmount += 3 * perf.audience;</span>
-<span class="fc" id="L40">          break;</span>
+<span class="fc" id="L42">          thisAmount += 3 * perf.audience;</span>
+<span class="fc" id="L43">          break;</span>
         default:
-<span class="fc" id="L42">          throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
+<span class="fc" id="L45">          throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
       }
 
       // add volume credits
-<span class="fc" id="L46">      volumeCredits += Math.max(perf.audience - 30, 0);</span>
+<span class="fc" id="L49">      this.volumeCredits += Math.max(perf.audience - 30, 0);</span>
       // add extra credit for every ten comedy attendees
-<span class="fc bfc" id="L48" title="All 2 branches covered.">      if (COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">      if (COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);</span>
 
       // print line for this order
-<span class="fc" id="L51">      sb.append(&quot;  &quot;);</span>
-<span class="fc" id="L52">      sb.append(play.name);</span>
-<span class="fc" id="L53">      sb.append(&quot;: &quot;);</span>
-<span class="fc" id="L54">      sb.append(frmt.format(thisAmount));</span>
-<span class="fc" id="L55">      sb.append(&quot; (&quot;);</span>
-<span class="fc" id="L56">      sb.append(perf.audience);</span>
-<span class="fc" id="L57">      sb.append(&quot; seats)\n&quot;);</span>
-<span class="fc" id="L58">      totalAmount += thisAmount;</span>
-<span class="fc" id="L59">    }</span>
-<span class="fc" id="L60">    sb.append(&quot;Amount owed is &quot;);</span>
-<span class="fc" id="L61">    sb.append(frmt.format(totalAmount));</span>
-<span class="fc" id="L62">    sb.append(&quot;\n&quot;);</span>
-<span class="fc" id="L63">    sb.append(&quot;You earned &quot;);</span>
-<span class="fc" id="L64">    sb.append(volumeCredits);</span>
-<span class="fc" id="L65">    sb.append(&quot; credits\n&quot;);</span>
-<span class="fc" id="L66">    return sb.toString();</span>
+<span class="fc" id="L54">      this.sb.append(&quot;  &quot;);</span>
+<span class="fc" id="L55">      this.sb.append(play.name);</span>
+<span class="fc" id="L56">      this.sb.append(&quot;: &quot;);</span>
+<span class="fc" id="L57">      this.sb.append(this.frmt.format(thisAmount));</span>
+<span class="fc" id="L58">      this.sb.append(&quot; (&quot;);</span>
+<span class="fc" id="L59">      this.sb.append(perf.audience);</span>
+<span class="fc" id="L60">      this.sb.append(&quot; seats)\n&quot;);</span>
+<span class="fc" id="L61">      this.totalAmount += thisAmount;</span>
+<span class="fc" id="L62">    }</span>
+<span class="fc" id="L63">    this.sb.append(&quot;Amount owed is &quot;);</span>
+<span class="fc" id="L64">    this.sb.append(this.frmt.format(this.totalAmount));</span>
+<span class="fc" id="L65">    this.sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L66">    this.sb.append(&quot;You earned &quot;);</span>
+<span class="fc" id="L67">    this.sb.append(volumeCredits);</span>
+<span class="fc" id="L68">    this.sb.append(&quot; credits\n&quot;);</span>
+<span class="fc" id="L69">    return this.sb.toString();</span>
   }
 
 }
