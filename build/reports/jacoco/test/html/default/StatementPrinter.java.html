@@ -4,48 +4,61 @@ import java.util.*;
 <span class="fc" id="L4">public class StatementPrinter {</span>
   public static final String TRAGEDY = &quot;tragedy&quot;;
   public static final String COMEDY = &quot;comedy&quot;;
-  
+
   public String print(Invoice invoice, HashMap&lt;String, Play&gt; plays) {
 <span class="fc" id="L9">    int totalAmount = 0;</span>
 <span class="fc" id="L10">    int volumeCredits = 0;</span>
-<span class="fc" id="L11">    String result = String.format(&quot;Statement for %s\n&quot;, invoice.customer);</span>
+<span class="fc" id="L11">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L12">    sb.append(&quot;Statement for &quot;);</span>
+<span class="fc" id="L13">    sb.append(invoice.customer);</span>
+<span class="fc" id="L14">    sb.append(&quot;\n&quot;);</span>
 
-<span class="fc" id="L13">    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
+<span class="fc" id="L16">    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
 
-<span class="fc bfc" id="L15" title="All 2 branches covered.">    for (Performance perf : invoice.performances) {</span>
-<span class="fc" id="L16">      Play play = plays.get(perf.playID);</span>
-<span class="fc" id="L17">      int thisAmount = 0;</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">    for (Performance perf : invoice.performances) {</span>
+<span class="fc" id="L19">      Play play = plays.get(perf.playID);</span>
+<span class="fc" id="L20">      int thisAmount = 0;</span>
 
-<span class="fc bfc" id="L19" title="All 3 branches covered.">      switch (play.type) {</span>
+<span class="fc bfc" id="L22" title="All 3 branches covered.">      switch (play.type) {</span>
         case TRAGEDY:
-<span class="fc" id="L21">          thisAmount = 40000;</span>
-<span class="fc bfc" id="L22" title="All 2 branches covered.">          if (perf.audience &gt; 30) {</span>
-<span class="fc" id="L23">            thisAmount += 1000 * (perf.audience - 30);</span>
+<span class="fc" id="L24">          thisAmount = 40000;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">          if (perf.audience &gt; 30) {</span>
+<span class="fc" id="L26">            thisAmount += 1000 * (perf.audience - 30);</span>
           }
           break;
         case COMEDY:
-<span class="fc" id="L27">          thisAmount = 30000;</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">          if (perf.audience &gt; 20) {</span>
-<span class="fc" id="L29">            thisAmount += 10000 + 500 * (perf.audience - 20);</span>
+<span class="fc" id="L30">          thisAmount = 30000;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">          if (perf.audience &gt; 20) {</span>
+<span class="fc" id="L32">            thisAmount += 10000 + 500 * (perf.audience - 20);</span>
           }
-<span class="fc" id="L31">          thisAmount += 300 * perf.audience;</span>
-<span class="fc" id="L32">          break;</span>
+<span class="fc" id="L34">          thisAmount += 300 * perf.audience;</span>
+<span class="fc" id="L35">          break;</span>
         default:
-<span class="fc" id="L34">          throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
+<span class="fc" id="L37">          throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
       }
 
       // add volume credits
-<span class="fc" id="L38">      volumeCredits += Math.max(perf.audience - 30, 0);</span>
+<span class="fc" id="L41">      volumeCredits += Math.max(perf.audience - 30, 0);</span>
       // add extra credit for every ten comedy attendees
-<span class="fc bfc" id="L40" title="All 2 branches covered.">      if (COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">      if (COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);</span>
 
       // print line for this order
-<span class="fc" id="L43">      result += String.format(&quot;  %s: %s (%s seats)\n&quot;, play.name, frmt.format(thisAmount / 100), perf.audience);</span>
-<span class="fc" id="L44">      totalAmount += thisAmount;</span>
-<span class="fc" id="L45">    }</span>
-<span class="fc" id="L46">    result += String.format(&quot;Amount owed is %s\n&quot;, frmt.format(totalAmount / 100));</span>
-<span class="fc" id="L47">    result += String.format(&quot;You earned %s credits\n&quot;, volumeCredits);</span>
-<span class="fc" id="L48">    return result;</span>
+<span class="fc" id="L46">      sb.append(&quot;  &quot;);</span>
+<span class="fc" id="L47">      sb.append(play.name);</span>
+<span class="fc" id="L48">      sb.append(&quot;: &quot;);</span>
+<span class="fc" id="L49">      sb.append(frmt.format(thisAmount / 100));</span>
+<span class="fc" id="L50">      sb.append(&quot; (&quot;);</span>
+<span class="fc" id="L51">      sb.append(perf.audience);</span>
+<span class="fc" id="L52">      sb.append(&quot; seats)\n&quot;);</span>
+<span class="fc" id="L53">      totalAmount += thisAmount;</span>
+<span class="fc" id="L54">    }</span>
+<span class="fc" id="L55">    sb.append(&quot;Amount owed is &quot;);</span>
+<span class="fc" id="L56">    sb.append(frmt.format(totalAmount / 100));</span>
+<span class="fc" id="L57">    sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L58">    sb.append(&quot;You earned &quot;);</span>
+<span class="fc" id="L59">    sb.append(volumeCredits);</span>
+<span class="fc" id="L60">    sb.append(&quot; credits\n&quot;);</span>
+<span class="fc" id="L61">    return sb.toString();</span>
   }
 
 }

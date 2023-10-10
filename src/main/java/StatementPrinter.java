@@ -4,11 +4,14 @@ import java.util.*;
 public class StatementPrinter {
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
-  
+
   public String print(Invoice invoice, HashMap<String, Play> plays) {
     int totalAmount = 0;
     int volumeCredits = 0;
-    String result = String.format("Statement for %s\n", invoice.customer);
+    StringBuilder sb = new StringBuilder();
+    sb.append("Statement for ");
+    sb.append(invoice.customer);
+    sb.append("\n");
 
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -40,12 +43,22 @@ public class StatementPrinter {
       if (COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
 
       // print line for this order
-      result += String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
+      sb.append("  ");
+      sb.append(play.name);
+      sb.append(": ");
+      sb.append(frmt.format(thisAmount / 100));
+      sb.append(" (");
+      sb.append(perf.audience);
+      sb.append(" seats)\n");
       totalAmount += thisAmount;
     }
-    result += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
-    result += String.format("You earned %s credits\n", volumeCredits);
-    return result;
+    sb.append("Amount owed is ");
+    sb.append(frmt.format(totalAmount / 100));
+    sb.append("\n");
+    sb.append("You earned ");
+    sb.append(volumeCredits);
+    sb.append(" credits\n");
+    return sb.toString();
   }
 
 }
