@@ -11,41 +11,28 @@ public class StatementPrinterTests {
 
     @Test
     void exampleStatement() {
-
-        HashMap<String, Play> plays = new HashMap<>();
-        plays.put("hamlet",  new Play("Hamlet", "tragedy"));
-        plays.put("as-like",  new Play("As You Like It", "comedy"));
-        plays.put("othello",  new Play("Othello", "tragedy"));
-        plays.put("vincent",  new Play("Vincent le médisant", "comedy"));
-        plays.put("noctis",  new Play("Dernière Fantaisie 15", "tragedy"));
-
         Invoice invoice = new Invoice("BigCo", List.of(
-                new Performance("hamlet", 55),
-                new Performance("as-like", 35),
-                new Performance("othello", 40),
-                new Performance("vincent", 5),
-                new Performance("noctis", 15)));
+                new Performance(new Play("Hamlet", "tragedy"), 55),
+                new Performance(new Play("As You Like It", "comedy"), 35),
+                new Performance(new Play("Othello", "tragedy"), 40),
+                new Performance(new Play("Vincent le médisant", "comedy"), 5),
+                new Performance(new Play("Dernière Fantaisie 15", "tragedy"), 15)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice, plays);
+        var result = statementPrinter.print(invoice);
 
         verify(result);
     }
 
     @Test
     void statementWithNewPlayTypes() {
-
-        HashMap<String, Play> plays = new HashMap<>();
-        plays.put("henry-v",  new Play("Henry V", "history"));
-        plays.put("as-like",  new Play("As You Like It", "pastoral"));
-
         Invoice invoice = new Invoice("BigCo", List.of(
-                new Performance("henry-v", 53),
-                new Performance("as-like", 55)));
+                new Performance(new Play("Henry V", "history"), 53),
+                new Performance(new Play("As You Like It", "pastoral"), 55)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
         Assertions.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice, plays);
+            statementPrinter.print(invoice);
         });
     }
 }

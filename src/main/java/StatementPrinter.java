@@ -5,7 +5,8 @@ public class StatementPrinter {
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
 
-  public String print(Invoice invoice, HashMap<String, Play> plays) {
+
+  public String print(Invoice invoice) {
     float totalAmount = 0;
     int volumeCredits = 0;
     StringBuilder sb = new StringBuilder();
@@ -16,7 +17,7 @@ public class StatementPrinter {
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
     for (Performance perf : invoice.performances) {
-      Play play = plays.get(perf.playID);
+      Play play = perf.play;
       float thisAmount = 0;
 
       switch (play.type) {
