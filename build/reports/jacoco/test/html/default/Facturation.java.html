@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Facturation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TheatricalPlayers</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Facturation.java</span></div><h1>Facturation.java</h1><pre class="source lang-java linenums">import java.util.*;
+
+public class Facturation {
+    private Invoice invoice;
+    public float totalAmount;
+    public int volumeCredits;
+    public HashMap&lt;Performance, Float&gt; amounts;
+
+<span class="fc" id="L9">    public Facturation(Invoice invoice){</span>
+<span class="fc" id="L10">        this.totalAmount = 0;</span>
+<span class="fc" id="L11">        this.volumeCredits = 0;</span>
+<span class="fc" id="L12">        this.amounts = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L13">        this.invoice = invoice;</span>
+<span class="fc" id="L14">    }</span>
+
+    public void calculFacture() {
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        for (Performance perf : this.invoice.performances) {</span>
+<span class="fc" id="L18">            Play play = perf.play;</span>
+<span class="fc" id="L19">            float amountForThisPlay = 0;</span>
+<span class="fc bfc" id="L20" title="All 3 branches covered.">            switch (play.type) {</span>
+                case StatementPrinter.TRAGEDY:
+<span class="fc" id="L22">                    amountForThisPlay = 400;</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">                    if (perf.audience &gt; 30) {</span>
+<span class="fc" id="L24">                        amountForThisPlay += 10 * (perf.audience - 30);</span>
+                    }
+                    break;
+                case StatementPrinter.COMEDY:
+<span class="fc" id="L28">                    amountForThisPlay = 300;</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                    if (perf.audience &gt; 20) {</span>
+<span class="fc" id="L30">                        amountForThisPlay += 100 + 5 * (perf.audience - 20);</span>
+                    }
+<span class="fc" id="L32">                    amountForThisPlay += 3 * perf.audience;</span>
+<span class="fc" id="L33">                    break;</span>
+                default:
+<span class="fc" id="L35">                    throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
+            }
+            // add volume credits
+<span class="fc" id="L38">            this.volumeCredits += Math.max(perf.audience - 30, 0);</span>
+            // add extra credit for every ten comedy attendees
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (StatementPrinter.COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);</span>
+
+<span class="fc" id="L42">            this.amounts.put(perf, amountForThisPlay);</span>
+<span class="fc" id="L43">            this.totalAmount += amountForThisPlay;</span>
+<span class="fc" id="L44">        }</span>
+
+<span class="fc" id="L46">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
