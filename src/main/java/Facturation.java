@@ -18,13 +18,13 @@ public class Facturation {
             Play play = perf.play;
             float amountForThisPlay = 0;
             switch (play.type) {
-                case StatementPrinter.TRAGEDY:
+                case TRAGEDY:
                     amountForThisPlay = 400;
                     if (perf.audience > 30) {
                         amountForThisPlay += 10 * (perf.audience - 30);
                     }
                     break;
-                case StatementPrinter.COMEDY:
+                case COMEDY:
                     amountForThisPlay = 300;
                     if (perf.audience > 20) {
                         amountForThisPlay += 100 + 5 * (perf.audience - 20);
@@ -37,7 +37,7 @@ public class Facturation {
             // add volume credits
             this.volumeCredits += Math.max(perf.audience - 30, 0);
             // add extra credit for every ten comedy attendees
-            if (StatementPrinter.COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);
+            if (Play.Type.COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);
 
             this.amounts.put(perf, amountForThisPlay);
             this.totalAmount += amountForThisPlay;
