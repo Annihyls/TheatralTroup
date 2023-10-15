@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-14T21:17:07" hostname="ANNIHYLS" time="0.197">
+<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-14T21:26:27" hostname="ANNIHYLS" time="0.244">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.19"/>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.236"/>
   <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting Invoice.
@@ -18,7 +18,7 @@
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:14)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:12)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -125,7 +125,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Perf
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:14)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:12)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -232,7 +232,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Play
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:14)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:12)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -339,7 +339,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Play
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:14)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:12)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -446,7 +446,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Stat
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:21)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:19)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -582,7 +582,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting sun/
 	at java.base/java.text.NumberFormat.getInstance(NumberFormat.java:963)
 	at java.base/java.text.NumberFormat.getCurrencyInstance(NumberFormat.java:591)
 	at StatementPrinter.<init>(StatementPrinter.java:16)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:21)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:19)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -690,7 +690,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Fact
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
 	at StatementPrinter.<init>(StatementPrinter.java:17)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:21)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:19)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -799,7 +799,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting Fact
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
 	at Facturation.calculFacture(Facturation.java:20)
 	at StatementPrinter.print(StatementPrinter.java:21)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:22)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:20)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -916,7 +916,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting java
 	at org.approvaltests.core.Options.createWriter(Options.java:61)
 	at org.approvaltests.Approvals.verify(Approvals.java:48)
 	at org.approvaltests.Approvals.verify(Approvals.java:44)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:24)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:22)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
@@ -1041,7 +1041,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting java
 	at org.approvaltests.core.Options.createWriter(Options.java:61)
 	at org.approvaltests.Approvals.verify(Approvals.java:48)
 	at org.approvaltests.Approvals.verify(Approvals.java:44)
-	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:24)
+	at StatementPrinterTests.exampleStatement(StatementPrinterTests.java:22)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
