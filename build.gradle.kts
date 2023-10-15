@@ -24,10 +24,10 @@ tasks.test {
 }
 
 tasks.withType<JavaCompile>() {
-  options.encoding = "UTF-8"
-  options.compilerArgs.add("-Xlint:all")
-  options.compilerArgs.add("-Xlint:-serial")
-  options.compilerArgs.add("--enable-preview")
+    options.encoding = "UTF-8"
+    options.compilerArgs.add("-Xlint:all")
+    options.compilerArgs.add("-Xlint:-serial")
+    options.compilerArgs.add("--enable-preview")
 }
 
 tasks.withType<Checkstyle>().configureEach {
@@ -44,13 +44,13 @@ pmd {
     toolVersion = "6.21.0"
     rulesMinimumPriority.set(5)
     ruleSets = listOf(
-        "category/java/bestpractices.xml",
-        "category/java/codestyle.xml",
-        "category/java/design.xml",
-        "category/java/documentation.xml",
-        "category/java/errorprone.xml",
-        "category/java/multithreading.xml",
-        "category/java/performance.xml",
-        "category/java/security.xml",
+            "category/java/bestpractices.xml",
+            "category/java/codestyle.xml",
+            "category/java/design.xml",
+            "category/java/documentation.xml",
+            "category/java/errorprone.xml",
+            "category/java/multithreading.xml",
+            "category/java/performance.xml",
+            "category/java/security.xml",
     )
 }

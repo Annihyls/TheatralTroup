@@ -6,8 +6,6 @@ public class StatementPrinter {
   private StringBuilder sb;
   private Facturation fact;
   private NumberFormat frmt;
-  public static final String TRAGEDY = "tragedy";
-  public static final String COMEDY = "comedy";
 
 
   public StatementPrinter(Invoice invoice) {
