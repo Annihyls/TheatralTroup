@@ -2,21 +2,21 @@ import java.text.NumberFormat;
 import java.util.*;
 
 public class StatementPrinter {
-  private Invoice invoice;
-  private StringBuilder sb;
-  private Facturation fact;
-  private NumberFormat frmt;
+  private final Invoice invoice;
+  private final StringBuilder sb;
+  private final Facturation fact;
+  private final NumberFormat frmt;
 
 
   public StatementPrinter(Invoice invoice) {
     this.invoice = invoice;
     this.sb = new StringBuilder();
     this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
-    fact = new Facturation(invoice);
+    this.fact = new Facturation(invoice);
   }
   public String print() {
     printClient();
-    fact.calculFacture();
+    this.fact.calculFacture();
     printPlayAndPerfAudience();
     printTotalAmountAndCredits();
     return this.sb.toString();
@@ -44,7 +44,7 @@ public class StatementPrinter {
     this.sb.append(this.frmt.format(fact.totalAmount));
     this.sb.append("\n");
     this.sb.append("You earned ");
-    this.sb.append(fact.volumeCredits);
+    this.sb.append(this.fact.volumeCredits);
     this.sb.append(" credits\n");
   }
 }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Facturation {
-    private Invoice invoice;
+    private final Invoice invoice;
     public float totalAmount;
     public int volumeCredits;
     public HashMap<Performance, Float> amounts;
