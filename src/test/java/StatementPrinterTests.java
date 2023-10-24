@@ -1,6 +1,8 @@
+import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.approvaltests.Approvals.verify;
@@ -17,7 +19,28 @@ public class StatementPrinterTests {
                 new Performance(new Play("Dernière Fantaisie 15", Play.Type.TRAGEDY), 15)));
 
         StatementPrinter statementPrinter = new StatementPrinter(invoice);
-        var result = statementPrinter.print();
+        var result = statementPrinter.toText();
+
+        verify(result);
+    }
+
+    @Test
+    void htmlPrintingTest() throws TemplateException, IOException {
+        //problème : affiche les choses dans le désordre !!! Freemarker affiche dans un autre ordre !
+        Invoice invoice = new Invoice("BigCo", List.of(
+                new Performance(new Play("Hamlet", Play.Type.TRAGEDY), 55),
+                new Performance(new Play("As You Like It", Play.Type.COMEDY), 35),
+                new Performance(new Play("Othello", Play.Type.TRAGEDY), 40),
+                new Performance(new Play("Vincent le médisant", Play.Type.COMEDY), 5),
+                new Performance(new Play("Dernière Fantaisie 15", Play.Type.TRAGEDY), 15)));
+
+        StatementPrinter statementPrinter = new StatementPrinter(invoice);
+        String result = null;
+        try {
+            result = statementPrinter.toHTML();
+        } catch (freemarker.template.TemplateException e) {
+            throw new RuntimeException(e);
+        }
 
         verify(result);
     }
@@ -29,6 +52,6 @@ public class StatementPrinterTests {
                 new Performance(new Play("As You Like It", Play.Type.PASTORAL), 55)));
 
         StatementPrinter statementPrinter = new StatementPrinter(invoice);
-        Assertions.assertThrows(Error.class, statementPrinter::print);
+        Assertions.assertThrows(Error.class, statementPrinter::toText);
     }
 }

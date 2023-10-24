@@ -1,5 +1,11 @@
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.text.NumberFormat;
 import java.util.*;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 public class StatementPrinter {
   private final Invoice invoice;
@@ -14,12 +20,25 @@ public class StatementPrinter {
     this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
     this.fact = new Facturation(invoice);
   }
-  public String print() {
+  public String toText() {
     printClient();
     this.fact.calculFacture();
     printPlayAndPerfAudience();
     printTotalAmountAndCredits();
     return this.sb.toString();
+  }
+
+  public String toHTML() throws TemplateException, IOException {
+    this.fact.calculFacture();
+    Configuration configuration = _FreeMarkerInitializer.getContext();
+    Map<String, Object> input = new HashMap<>();
+    input.put("facturation", this.fact);
+    Writer output = new StringWriter();
+    Template template = configuration.getTemplate("/htmlPrint.ftl");
+    template.setOutputEncoding("UTF-8");
+    template.process(input, output);
+
+    return output.toString();
   }
 
   private void printClient() {

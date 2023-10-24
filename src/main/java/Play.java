@@ -14,4 +14,12 @@ public class Play {
     HISTORY,
     PASTORAL
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public Type getType() {
+    return type;
+  }
 }

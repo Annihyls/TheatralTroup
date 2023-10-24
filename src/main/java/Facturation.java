@@ -45,4 +45,19 @@ public class Facturation {
 
     }
 
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public int getVolumeCredits() {
+        return volumeCredits;
+    }
+
+    public HashMap<Performance, Float> getAmounts() {
+        return amounts;
+    }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-20T11:32:25" hostname="ANNIHYLS" time="0.395">
+<testsuite name="StatementPrinterTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-24T11:59:57" hostname="ANNIHYLS" time="1.008">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.379"/>
-  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.014"/>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.277"/>
+  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.017"/>
+  <testcase name="htmlPrintingTest()" classname="StatementPrinterTests" time="0.711"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

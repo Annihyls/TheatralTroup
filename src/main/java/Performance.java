@@ -7,4 +7,12 @@ public class Performance {
     this.play = play;
     this.audience = audience;
   }
+
+  public Play getPlay() {
+    return play;
+  }
+
+  public int getAudience() {
+    return audience;
+  }
 }
