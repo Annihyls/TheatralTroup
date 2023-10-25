@@ -25,6 +25,9 @@ public class StatementPrinter {
     this.fact.calculFacture();
     printPlayAndPerfAudience();
     printTotalAmountAndCredits();
+    if(this.invoice.customer.isAvailableForAReduction()) {
+      printReduction();
+    }
     return this.sb.toString();
   }
 
@@ -43,7 +46,7 @@ public class StatementPrinter {
 
   private void printClient() {
     this.sb.append("Statement for ");
-    this.sb.append(this.invoice.customer);
+    this.sb.append(this.invoice.customer.getName());
     this.sb.append("\n");
   }
   private void printPlayAndPerfAudience() {
@@ -65,5 +68,17 @@ public class StatementPrinter {
     this.sb.append("You earned ");
     this.sb.append(this.fact.volumeCredits);
     this.sb.append(" credits\n");
+    this.sb.append("Your total credits: ");
+    this.sb.append(this.invoice.customer.getCredit());
+    this.sb.append("\n");
+  }
+
+  private void printReduction(){
+    sb.append("Amount you really paid: ");
+    sb.append(this.frmt.format(fact.totalAmount - 15));
+    sb.append("\n");
+    sb.append("Your credit after the reduction: ");
+    sb.append(this.invoice.customer.getCredit());
+    sb.append("\n");
   }
 }

@@ -3,20 +3,31 @@ import java.util.UUID;
 public class Customer {
     private String name;
     private UUID numCustomer;
-    private int sold;
+    private int credit;
 
-    public Customer(String name, int sold){
+    public Customer(String name, int credit){
         this.name = name;
         this.numCustomer = UUID.randomUUID();
-        this.sold = sold;
+        this.credit = credit;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public int getCredit() {
+        return this.credit;
     }
 
     public boolean isAvailableForAReduction() {
         boolean result = false;
-        if(this.sold > 150) {
-            this.sold -= 150;
+        if(this.credit >= 150) {
+            this.credit -= 150;
             result = true;
         }
         return result;
+    }
+
+    public void addCredits(int earned) {
+        this.credit += earned;
     }
 }

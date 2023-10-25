@@ -1,0 +1,11 @@
+Statement for BigCo
+  Hamlet: $650.00 (55 seats)
+  As You Like It: $580.00 (35 seats)
+  Othello: $500.00 (40 seats)
+  Vincent le médisant: $315.00 (5 seats)
+  Dernière Fantaisie 15: $400.00 (15 seats)
+Amount owed is $2,445.00
+You earned 48 credits
+Your total credit: 208
+Amount you really paid: 2,430.00
+Your credit after the reduction: 58

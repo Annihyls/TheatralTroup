@@ -42,6 +42,7 @@ public class Facturation {
             this.amounts.put(perf, amountForThisPlay);
             this.totalAmount += amountForThisPlay;
         }
+        this.invoice.customer.addCredits(this.volumeCredits);
 
     }
 
