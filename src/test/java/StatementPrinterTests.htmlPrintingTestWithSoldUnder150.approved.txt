@@ -46,6 +46,10 @@
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
 				<td>48</td>
 			</tr>
+			<tr>
+            	<th scope="col"><strong>Your fidelity points:</strong></th>
+            	<td>149</td>
+            </tr>
 		</table>
 	</body>
 </html>

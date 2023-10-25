@@ -8,7 +8,7 @@
 	</head>
     <body>
 		<h1>Invoice</h1>
-		<ul><li><strong>Client : </strong>${facturation.invoice.customer}</li></ul>
+		<ul><li><strong>Client : </strong>${facturation.invoice.customer.name}</li></ul>
 		<table>
 			<tr>
 				<th scope="col"><strong>Play</strong></th>
@@ -30,6 +30,20 @@
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
 				<td>${facturation.volumeCredits}</td>
 			</tr>
+			<tr>
+            	<th scope="col"><strong>Your fidelity points:</strong></th>
+            	<td>${facturation.invoice.customer.credit}</td>
+            </tr>
+            <#if facturation.invoice.customer.isAvailableForAReduction() == true>
+            <tr>
+				<th scope="col"><strong>Amount you really paid:</strong></th>
+				<td>${facturation.totalAmount?string.currency}</td>
+			</tr>
+			<tr>
+            	<th scope="col"><strong> Your credit after the reduction:</strong></th>
+            	<td>${facturation.invoice.customer.credit}</td>
+            </tr>
+            </#if>
 		</table>
 	</body>
 </html>

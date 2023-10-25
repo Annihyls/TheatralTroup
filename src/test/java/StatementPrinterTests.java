@@ -42,7 +42,7 @@ public class StatementPrinterTests {
     //@Test
     void htmlPrintingTestWithSoldUnder150() throws TemplateException, IOException {
         //problème : affiche les choses dans le désordre !!! Freemarker affiche dans un autre ordre !
-        Invoice invoice = new Invoice(new Customer("BigCo", 149), List.of(
+        Invoice invoice = new Invoice(new Customer("BigCo", 101), List.of(
                 new Performance(new Play("Hamlet", Play.Type.TRAGEDY), 55),
                 new Performance(new Play("As You Like It", Play.Type.COMEDY), 35),
                 new Performance(new Play("Othello", Play.Type.TRAGEDY), 40),
@@ -62,7 +62,7 @@ public class StatementPrinterTests {
     //@Test
     void htmlPrintingTestWithSoldOver150() throws TemplateException, IOException {
         //problème : affiche les choses dans le désordre !!! Freemarker affiche dans un autre ordre !
-        Invoice invoice = new Invoice(new Customer("BigCo", 160), List.of(
+        Invoice invoice = new Invoice(new Customer("BigCo", 149), List.of(
                 new Performance(new Play("Hamlet", Play.Type.TRAGEDY), 55),
                 new Performance(new Play("As You Like It", Play.Type.COMEDY), 35),
                 new Performance(new Play("Othello", Play.Type.TRAGEDY), 40),

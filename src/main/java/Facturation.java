@@ -4,6 +4,7 @@ public class Facturation {
     private final Invoice invoice;
     public float totalAmount;
     public int volumeCredits;
+
     public HashMap<Performance, Float> amounts;
 
     public Facturation(Invoice invoice){
@@ -43,7 +44,6 @@ public class Facturation {
             this.totalAmount += amountForThisPlay;
         }
         this.invoice.customer.addCredits(this.volumeCredits);
-
     }
 
     public Invoice getInvoice() {

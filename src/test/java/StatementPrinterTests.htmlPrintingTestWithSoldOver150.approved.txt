@@ -1,5 +1,3 @@
-<#ftl encoding="utf-8">
-<#setting locale="en_US">
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,42 +6,58 @@
 	</head>
     <body>
 		<h1>Invoice</h1>
-		<ul><li><strong>Client : </strong>${facturation.invoice.customer.name}</li></ul>
+		<ul><li><strong>Client : </strong>BigCo</li></ul>
 		<table>
 			<tr>
 				<th scope="col"><strong>Play</strong></th>
 				<th scope="col"><strong>Seats sold</strong></th>
 				<th scope="col"><strong>Price</strong></th>
 			</tr>
-            <#list facturation.amounts as performance, price>
             <tr>
-                <td>${performance.play.name}</td>
-                <td>${performance.audience}</td>
-                <td>${price?string.currency}</td>
+                <td>Dernière Fantaisie 15</td>
+                <td>15</td>
+                <td>$400.00</td>
             </tr>
-            </#list>
+            <tr>
+                <td>Hamlet</td>
+                <td>55</td>
+                <td>$650.00</td>
+            </tr>
+            <tr>
+                <td>As You Like It</td>
+                <td>35</td>
+                <td>$580.00</td>
+            </tr>
+            <tr>
+                <td>Othello</td>
+                <td>40</td>
+                <td>$500.00</td>
+            </tr>
+            <tr>
+                <td>Vincent le médisant</td>
+                <td>5</td>
+                <td>$315.00</td>
+            </tr>
 			<tr>
 				<th scope="col"><strong>Total owed:</strong></th>
-				<td>${facturation.totalAmount?string.currency}</td>
+				<td>$2,445.00</td>
 			</tr>
 			<tr>
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
-				<td>${facturation.volumeCredits}</td>
+				<td>48</td>
 			</tr>
 			<tr>
             	<th scope="col"><strong>Your fidelity points:</strong></th>
-            	<td>${facturation.invoice.customer.credit}</td>
+            	<td>197</td>
             </tr>
-            <#if facturation.invoice.customer.isAvailableForAReduction() == true>
             <tr>
 				<th scope="col"><strong>Amount you really paid:</strong></th>
-				<td>${facturation.totalAmount?string.currency}</td>
+				<td>$2,430.00</td>
 			</tr>
 			<tr>
             	<th scope="col"><strong> Your credit after the reduction:</strong></th>
-            	<td>${facturation.invoice.customer.credit}</td>
+            	<td>47</td>
             </tr>
-            </#if>
 		</table>
 	</body>
 </html>
