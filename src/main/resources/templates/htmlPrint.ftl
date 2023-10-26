@@ -8,7 +8,7 @@
 	</head>
     <body>
 		<h1>Invoice</h1>
-		<ul><li><strong>Client : </strong>${facturation.invoice.customer.name}</li></ul>
+		<ul><li><strong>Client : </strong>${facturation.getCustomerName()}</li></ul>
 		<table>
 			<tr>
 				<th scope="col"><strong>Play</strong></th>
@@ -37,12 +37,12 @@
 			</tr>
 			<tr>
             	<th scope="col"><strong> Your credit after the reduction:</strong></th>
-            	<td>${facturation.invoice.customer.credit}</td>
+            	<td>${facturation.getCustomerCredits()}</td>
             </tr>
             <#else>
             <tr>
                 <th scope="col"><strong>Your fidelity points:</strong></th>
-                <td>${facturation.invoice.customer.credit}</td>
+                <td>${facturation.getCustomerCredits()}</td>
             </tr>
             </#if>
 		</table>
