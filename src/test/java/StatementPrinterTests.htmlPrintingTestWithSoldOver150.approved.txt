@@ -14,19 +14,14 @@
 				<th scope="col"><strong>Price</strong></th>
 			</tr>
             <tr>
-                <td>Dernière Fantaisie 15</td>
-                <td>15</td>
-                <td>$400.00</td>
-            </tr>
-            <tr>
                 <td>Hamlet</td>
                 <td>55</td>
                 <td>$650.00</td>
             </tr>
             <tr>
-                <td>As You Like It</td>
-                <td>35</td>
-                <td>$580.00</td>
+                <td>Vincent le médisant</td>
+                <td>5</td>
+                <td>$315.00</td>
             </tr>
             <tr>
                 <td>Othello</td>
@@ -34,9 +29,14 @@
                 <td>$500.00</td>
             </tr>
             <tr>
-                <td>Vincent le médisant</td>
-                <td>5</td>
-                <td>$315.00</td>
+                <td>As You Like It</td>
+                <td>35</td>
+                <td>$580.00</td>
+            </tr>
+            <tr>
+                <td>Dernière Fantaisie 15</td>
+                <td>15</td>
+                <td>$400.00</td>
             </tr>
 			<tr>
 				<th scope="col"><strong>Total owed:</strong></th>
@@ -46,10 +46,6 @@
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
 				<td>48</td>
 			</tr>
-			<tr>
-            	<th scope="col"><strong>Your fidelity points:</strong></th>
-            	<td>197</td>
-            </tr>
             <tr>
 				<th scope="col"><strong>Amount you really paid:</strong></th>
 				<td>$2,430.00</td>

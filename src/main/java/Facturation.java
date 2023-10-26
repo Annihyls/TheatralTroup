@@ -4,14 +4,25 @@ public class Facturation {
     private final Invoice invoice;
     public float totalAmount;
     public int volumeCredits;
-
+    public boolean isAvailableForAReduction;
+    public float totalAmountAfterReduction;
+    public int creditBeforeReduction;
     public HashMap<Performance, Float> amounts;
+
+    public boolean isAvailableForAReduction() {
+        return isAvailableForAReduction;
+    }
 
     public Facturation(Invoice invoice){
         this.totalAmount = 0;
         this.volumeCredits = 0;
         this.amounts = new HashMap<>();
         this.invoice = invoice;
+        this.isAvailableForAReduction = false;
+    }
+
+    public float getTotalAmountAfterReduction() {
+        return totalAmountAfterReduction;
     }
 
     public void calculFacture() {
@@ -44,6 +55,12 @@ public class Facturation {
             this.totalAmount += amountForThisPlay;
         }
         this.invoice.customer.addCredits(this.volumeCredits);
+        if(this.invoice.customer.isAvailableForAReduction()) {
+            this.isAvailableForAReduction = true;
+            this.creditBeforeReduction = this.invoice.customer.getCredit();
+            this.invoice.customer.removeCredits();
+            this.totalAmountAfterReduction = this.totalAmount - 15;
+        }
     }
 
     public Invoice getInvoice() {

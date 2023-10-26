@@ -19,15 +19,14 @@ public class Customer {
     }
 
     public boolean isAvailableForAReduction() {
-        boolean result = false;
-        if(this.credit >= 150) {
-            this.credit -= 150;
-            result = true;
-        }
-        return result;
+        return this.credit >= 150;
     }
 
     public void addCredits(int earned) {
         this.credit += earned;
+    }
+
+    public void removeCredits() {
+        this.credit -= 150;
     }
 }

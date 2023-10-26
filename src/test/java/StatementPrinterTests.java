@@ -59,7 +59,7 @@ public class StatementPrinterTests {
 
         verify(result);
     }
-    //@Test
+    @Test
     void htmlPrintingTestWithSoldOver150() throws TemplateException, IOException {
         //problème : affiche les choses dans le désordre !!! Freemarker affiche dans un autre ordre !
         Invoice invoice = new Invoice(new Customer("BigCo", 149), List.of(

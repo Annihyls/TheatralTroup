@@ -6,6 +6,5 @@ Statement for BigCo
   Dernière Fantaisie 15: $400.00 (15 seats)
 Amount owed is $2,445.00
 You earned 48 credits
-Your total credits: 208
-Amount you really paid: $2,430.00
 Your credit after the reduction: 58
+Amount you really paid: $2,430.00

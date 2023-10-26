@@ -30,18 +30,19 @@
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
 				<td>${facturation.volumeCredits}</td>
 			</tr>
-			<tr>
-            	<th scope="col"><strong>Your fidelity points:</strong></th>
-            	<td>${facturation.invoice.customer.credit}</td>
-            </tr>
-            <#if facturation.invoice.customer.isAvailableForAReduction() == true>
+            <#if facturation.isAvailableForAReduction() == true>
             <tr>
 				<th scope="col"><strong>Amount you really paid:</strong></th>
-				<td>${facturation.totalAmount?string.currency}</td>
+				<td>${facturation.totalAmountAfterReduction?string.currency}</td>
 			</tr>
 			<tr>
             	<th scope="col"><strong> Your credit after the reduction:</strong></th>
             	<td>${facturation.invoice.customer.credit}</td>
+            </tr>
+            <#else>
+            <tr>
+                <th scope="col"><strong>Your fidelity points:</strong></th>
+                <td>${facturation.invoice.customer.credit}</td>
             </tr>
             </#if>
 		</table>
