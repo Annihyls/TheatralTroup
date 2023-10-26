@@ -4,25 +4,16 @@ public class Facturation {
     private final Invoice invoice;
     public float totalAmount;
     public int volumeCredits;
-    public boolean isAvailableForAReduction;
+    public boolean wasAvailableForAReduction;
     public float totalAmountAfterReduction;
-    public int creditBeforeReduction;
     public HashMap<Performance, Float> amounts;
-
-    public boolean isAvailableForAReduction() {
-        return isAvailableForAReduction;
-    }
 
     public Facturation(Invoice invoice){
         this.totalAmount = 0;
         this.volumeCredits = 0;
         this.amounts = new HashMap<>();
         this.invoice = invoice;
-        this.isAvailableForAReduction = false;
-    }
-
-    public float getTotalAmountAfterReduction() {
-        return totalAmountAfterReduction;
+        this.wasAvailableForAReduction = false;
     }
 
     public void calculFacture() {
@@ -55,9 +46,12 @@ public class Facturation {
             this.totalAmount += amountForThisPlay;
         }
         this.invoice.customer.addCredits(this.volumeCredits);
+        reductionCalculator();
+    }
+
+    private void reductionCalculator() {
         if(this.invoice.customer.isAvailableForAReduction()) {
-            this.isAvailableForAReduction = true;
-            this.creditBeforeReduction = this.invoice.customer.getCredit();
+            this.wasAvailableForAReduction = true;
             this.invoice.customer.removeCredits();
             this.totalAmountAfterReduction = this.totalAmount - 15;
         }
@@ -77,5 +71,23 @@ public class Facturation {
 
     public HashMap<Performance, Float> getAmounts() {
         return amounts;
+    }
+    public float getTotalAmountAfterReduction() {
+        return totalAmountAfterReduction;
+    }
+    public boolean getWasAvailableForAReduction() {
+        return wasAvailableForAReduction;
+    }
+
+    public String getCustomerName() {
+        return this.invoice.customer.getName();
+    }
+
+    public List<Performance> getPerformances() {
+        return this.invoice.performances;
+    }
+
+    public int getCustomerCredits() {
+        return this.invoice.customer.getCredit();
     }
 }

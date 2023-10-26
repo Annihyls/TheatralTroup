@@ -8,14 +8,12 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class StatementPrinter {
-  private final Invoice invoice;
   private final StringBuilder sb;
   private final Facturation fact;
   private final NumberFormat frmt;
 
 
   public StatementPrinter(Invoice invoice) {
-    this.invoice = invoice;
     this.sb = new StringBuilder();
     this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
     this.fact = new Facturation(invoice);
@@ -38,17 +36,16 @@ public class StatementPrinter {
     Template template = configuration.getTemplate("/htmlPrint.ftl");
     template.setOutputEncoding("UTF-8");
     template.process(input, output);
-
     return output.toString();
   }
 
   private void printClient() {
     this.sb.append("Statement for ");
-    this.sb.append(this.invoice.customer.getName());
+    this.sb.append(this.fact.getCustomerName());
     this.sb.append("\n");
   }
   private void printPlayAndPerfAudience() {
-    for(Performance perf : this.invoice.performances) {
+    for(Performance perf : this.fact.getPerformances()) {
       this.sb.append("  ");
       this.sb.append(perf.play.name);
       this.sb.append(": ");
@@ -69,16 +66,16 @@ public class StatementPrinter {
   }
 
   private void printReduction(){
-    if(this.fact.isAvailableForAReduction) {
+    if(this.fact.wasAvailableForAReduction) {
       this.sb.append("Your credit after the reduction: ");
-      this.sb.append(this.invoice.customer.getCredit());
+      this.sb.append(this.fact.getCustomerCredits());
       this.sb.append("\n");
       this.sb.append("Amount you really paid: ");
       this.sb.append(this.frmt.format(fact.totalAmountAfterReduction));
       this.sb.append("\n");
     } else {
       this.sb.append("Your total credits: ");
-      this.sb.append(this.invoice.customer.getCredit());
+      this.sb.append(this.fact.getCustomerCredits());
       this.sb.append("\n");
     }
   }

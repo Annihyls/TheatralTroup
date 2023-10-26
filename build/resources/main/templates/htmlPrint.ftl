@@ -30,7 +30,7 @@
 				<th scope="col"><strong>Fidelity points earned:</strong></th>
 				<td>${facturation.volumeCredits}</td>
 			</tr>
-            <#if facturation.isAvailableForAReduction() == true>
+            <#if facturation.getWasAvailableForAReduction() == true>
             <tr>
 				<th scope="col"><strong>Amount you really paid:</strong></th>
 				<td>${facturation.totalAmountAfterReduction?string.currency}</td>
