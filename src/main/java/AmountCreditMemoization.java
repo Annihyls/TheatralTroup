@@ -1,10 +1,10 @@
 public class AmountCreditMemoization {
-    private final float totalAmount;
-    private final int volumeCredits;
+    private float totalAmount;
+    private int volumeCredits;
 
-    public AmountCreditMemoization(float totalAmount, int volumeCredits){
-        this.totalAmount = totalAmount;
-        this.volumeCredits = volumeCredits;
+    public AmountCreditMemoization(){
+        this.totalAmount = 0;
+        this.volumeCredits = 0;
     }
     public float getTotalAmount() {
         return totalAmount;
@@ -13,4 +13,13 @@ public class AmountCreditMemoization {
     public int getVolumeCredits() {
         return volumeCredits;
     }
+
+    public void addVolumeCredit(int value) {
+        this.volumeCredits += value;
+    }
+
+    public void addTotalAmount(float value) {
+        this.totalAmount += value;
+    }
+
 }

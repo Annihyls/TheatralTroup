@@ -2,15 +2,13 @@ import java.util.*;
 
 public class Facturation {
     private final Invoice invoice;
-    public float totalAmount;
-    public int volumeCredits;
+    private AmountCreditMemoization acm;
     public boolean wasAvailableForAReduction;
     public float totalAmountAfterReduction;
     public HashMap<Performance, Float> amounts;
 
     public Facturation(Invoice invoice){
-        this.totalAmount = 0;
-        this.volumeCredits = 0;
+        this.acm = new AmountCreditMemoization();
         this.amounts = new HashMap<>();
         this.invoice = invoice;
         this.wasAvailableForAReduction = false;
@@ -38,14 +36,17 @@ public class Facturation {
                     throw new Error("unknown type: ${play.type}");
             }
             // add volume credits
-            this.volumeCredits += Math.max(perf.audience - 30, 0);
+            this.acm.addVolumeCredit(Math.max(perf.audience - 30, 0));
             // add extra credit for every ten comedy attendees
-            if (Play.Type.COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);
+            if (Play.Type.COMEDY.equals(play.type)){
+                int perfCredit = (int) Math.floor((double) perf.audience / 5);
+                this.acm.addVolumeCredit(perfCredit);
+            }
 
             this.amounts.put(perf, amountForThisPlay);
-            this.totalAmount += amountForThisPlay;
+            this.acm.addTotalAmount(amountForThisPlay);
         }
-        this.invoice.customer.addCredits(this.volumeCredits);
+        this.invoice.customer.addCredits(this.acm.getVolumeCredits());
         reductionCalculator();
     }
 
@@ -53,7 +54,7 @@ public class Facturation {
         if(this.invoice.customer.isAvailableForAReduction()) {
             this.wasAvailableForAReduction = true;
             this.invoice.customer.removeCredits();
-            this.totalAmountAfterReduction = this.totalAmount - 15;
+            this.totalAmountAfterReduction = this.acm.getTotalAmount() - 15;
         }
     }
 
@@ -62,11 +63,11 @@ public class Facturation {
     }
 
     public float getTotalAmount() {
-        return totalAmount;
+        return acm.getTotalAmount();
     }
 
     public int getVolumeCredits() {
-        return volumeCredits;
+        return acm.getVolumeCredits();
     }
 
     public HashMap<Performance, Float> getAmounts() {

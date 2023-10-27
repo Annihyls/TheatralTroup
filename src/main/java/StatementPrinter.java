@@ -58,10 +58,10 @@ public class StatementPrinter {
 
   private void printTotalAmountAndCredits() {
     this.sb.append("Amount owed is ");
-    this.sb.append(this.frmt.format(fact.totalAmount));
+    this.sb.append(this.frmt.format(fact.getTotalAmount()));
     this.sb.append("\n");
     this.sb.append("You earned ");
-    this.sb.append(this.fact.volumeCredits);
+    this.sb.append(this.fact.getVolumeCredits());
     this.sb.append(" credits\n");
   }
 
