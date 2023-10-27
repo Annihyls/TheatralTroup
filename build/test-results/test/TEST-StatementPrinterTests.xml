@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-27T12:56:10" hostname="ANNIHYLS" time="0.839">
+<testsuite name="StatementPrinterTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-27T13:13:35" hostname="ANNIHYLS" time="0.868">
   <properties/>
-  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.083"/>
-  <testcase name="withSoldUnder150()" classname="StatementPrinterTests" time="0.209"/>
-  <testcase name="htmlPrintingTestWithSoldOver150()" classname="StatementPrinterTests" time="0.419"/>
-  <testcase name="htmlPrintingTestWithSoldUnder150()" classname="StatementPrinterTests" time="0.064"/>
-  <testcase name="withSoldOver150()" classname="StatementPrinterTests" time="0.058"/>
+  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.071"/>
+  <testcase name="withSoldUnder150()" classname="StatementPrinterTests" time="0.22"/>
+  <testcase name="htmlPrintingTestWithSoldOver150()" classname="StatementPrinterTests" time="0.444"/>
+  <testcase name="htmlPrintingTestWithSoldUnder150()" classname="StatementPrinterTests" time="0.069"/>
+  <testcase name="withSoldOver150()" classname="StatementPrinterTests" time="0.06"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

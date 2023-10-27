@@ -1,9 +1,12 @@
 public class ReductionMemoization {
-    public boolean wasAvailableForAReduction;
-    public float totalAmountAfterReduction;
-    public ReductionMemoization(boolean reducAvailable, float reducAmount) {
+    private boolean wasAvailableForAReduction = false;
+    private float totalAmountAfterReduction;
+    private static final int REDUC_VALUE = 15;
+
+
+    public ReductionMemoization(boolean reducAvailable, float totalAmount) {
         this.wasAvailableForAReduction = reducAvailable;
-        this.totalAmountAfterReduction = reducAmount;
+        this.totalAmountAfterReduction = totalAmount - REDUC_VALUE;
     }
 
     public boolean isWasAvailableForAReduction() {
@@ -14,4 +17,7 @@ public class ReductionMemoization {
         return totalAmountAfterReduction;
     }
 
+    public void setWasAvailableForAReduction(boolean b) {
+        this.wasAvailableForAReduction = b;
+    }
 }

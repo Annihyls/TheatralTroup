@@ -66,12 +66,12 @@ public class StatementPrinter {
   }
 
   private void printReduction(){
-    if(this.fact.wasAvailableForAReduction) {
+    if(this.fact.getWasAvailableForAReduction()) {
       this.sb.append("Your credit after the reduction: ");
       this.sb.append(this.fact.getCustomerCredits());
       this.sb.append("\n");
       this.sb.append("Amount you really paid: ");
-      this.sb.append(this.frmt.format(fact.totalAmountAfterReduction));
+      this.sb.append(this.frmt.format(fact.getTotalAmountAfterReduction()));
       this.sb.append("\n");
     } else {
       this.sb.append("Your total credits: ");

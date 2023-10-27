@@ -3,15 +3,13 @@ import java.util.*;
 public class Facturation {
     private final Invoice invoice;
     private AmountCreditMemoization acm;
-    public boolean wasAvailableForAReduction;
-    public float totalAmountAfterReduction;
+    private ReductionMemoization reducMem;
     public HashMap<Performance, Float> amounts;
 
     public Facturation(Invoice invoice){
         this.acm = new AmountCreditMemoization();
         this.amounts = new HashMap<>();
         this.invoice = invoice;
-        this.wasAvailableForAReduction = false;
     }
 
     public void calculFacture() {
@@ -51,10 +49,10 @@ public class Facturation {
     }
 
     private void reductionCalculator() {
+        reducMem = new ReductionMemoization(false, this.acm.getTotalAmount());
         if(this.invoice.customer.isAvailableForAReduction()) {
-            this.wasAvailableForAReduction = true;
+            reducMem.setWasAvailableForAReduction(true);
             this.invoice.customer.removeCredits();
-            this.totalAmountAfterReduction = this.acm.getTotalAmount() - 15;
         }
     }
 
@@ -74,10 +72,10 @@ public class Facturation {
         return amounts;
     }
     public float getTotalAmountAfterReduction() {
-        return totalAmountAfterReduction;
+        return reducMem.getTotalAmountAfterReduction();
     }
     public boolean getWasAvailableForAReduction() {
-        return wasAvailableForAReduction;
+        return reducMem.isWasAvailableForAReduction();
     }
 
     public String getCustomerName() {
