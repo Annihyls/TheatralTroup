@@ -68,8 +68,8 @@ public class Facturation {
         return acm.getVolumeCredits();
     }
 
-    public HashMap<Performance, Float> getAmounts() {
-        return amounts;
+    public float getPerformancePrice(Performance perf) {
+        return amounts.get(perf);
     }
     public float getTotalAmountAfterReduction() {
         return reducMem.getTotalAmountAfterReduction();
@@ -88,5 +88,10 @@ public class Facturation {
 
     public int getCustomerCredits() {
         return this.invoice.customer.getCredit();
+    }
+
+    //for freemarker template
+    public HashMap<Performance, Float> getAmounts() {
+        return amounts;
     }
 }

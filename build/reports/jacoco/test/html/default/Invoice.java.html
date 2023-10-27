@@ -2,16 +2,16 @@
 
 public class Invoice {
 
-  public String customer;
+  public Customer customer;
   public List&lt;Performance&gt; performances;
 
-<span class="fc" id="L8">  public Invoice(String customer, List&lt;Performance&gt; performances) {</span>
+<span class="fc" id="L8">  public Invoice(Customer customer, List&lt;Performance&gt; performances) {</span>
 <span class="fc" id="L9">    this.customer = customer;</span>
 <span class="fc" id="L10">    this.performances = performances;</span>
 <span class="fc" id="L11">  }</span>
 
-  public String getCustomer() {
-<span class="fc" id="L14">    return customer;</span>
+  public Customer getCustomer() {
+<span class="nc" id="L14">    return customer;</span>
   }
 
   public List&lt;Performance&gt; getPerformances() {

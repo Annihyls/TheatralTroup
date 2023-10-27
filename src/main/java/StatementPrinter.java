@@ -49,7 +49,7 @@ public class StatementPrinter {
       this.sb.append("  ");
       this.sb.append(perf.play.name);
       this.sb.append(": ");
-      this.sb.append(this.frmt.format(fact.amounts.get(perf)));
+      this.sb.append(this.frmt.format(fact.getPerformancePrice(perf)));
       this.sb.append(" (");
       this.sb.append(perf.audience);
       this.sb.append(" seats)\n");

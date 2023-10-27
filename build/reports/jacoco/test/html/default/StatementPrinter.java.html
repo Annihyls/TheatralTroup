@@ -8,63 +8,76 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class StatementPrinter {
-  private final Invoice invoice;
   private final StringBuilder sb;
   private final Facturation fact;
   private final NumberFormat frmt;
 
 
-<span class="fc" id="L17">  public StatementPrinter(Invoice invoice) {</span>
-<span class="fc" id="L18">    this.invoice = invoice;</span>
-<span class="fc" id="L19">    this.sb = new StringBuilder();</span>
-<span class="fc" id="L20">    this.frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
-<span class="fc" id="L21">    this.fact = new Facturation(invoice);</span>
-<span class="fc" id="L22">  }</span>
+<span class="fc" id="L16">  public StatementPrinter(Invoice invoice) {</span>
+<span class="fc" id="L17">    this.sb = new StringBuilder();</span>
+<span class="fc" id="L18">    this.frmt = NumberFormat.getCurrencyInstance(Locale.US);</span>
+<span class="fc" id="L19">    this.fact = new Facturation(invoice);</span>
+<span class="fc" id="L20">  }</span>
   public String toText() {
-<span class="fc" id="L24">    printClient();</span>
-<span class="fc" id="L25">    this.fact.calculFacture();</span>
-<span class="fc" id="L26">    printPlayAndPerfAudience();</span>
-<span class="fc" id="L27">    printTotalAmountAndCredits();</span>
-<span class="fc" id="L28">    return this.sb.toString();</span>
+<span class="fc" id="L22">    printClient();</span>
+<span class="fc" id="L23">    this.fact.calculFacture();</span>
+<span class="fc" id="L24">    printPlayAndPerfAudience();</span>
+<span class="fc" id="L25">    printTotalAmountAndCredits();</span>
+<span class="fc" id="L26">    printReduction();</span>
+<span class="fc" id="L27">    return this.sb.toString();</span>
   }
 
   public String toHTML() throws TemplateException, IOException {
-<span class="fc" id="L32">    this.fact.calculFacture();</span>
-<span class="fc" id="L33">    Configuration configuration = _FreeMarkerInitializer.getContext();</span>
-<span class="fc" id="L34">    Map&lt;String, Object&gt; input = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L35">    input.put(&quot;facturation&quot;, this.fact);</span>
-<span class="fc" id="L36">    Writer output = new StringWriter();</span>
-<span class="fc" id="L37">    Template template = configuration.getTemplate(&quot;/htmlPrint.ftl&quot;);</span>
-<span class="fc" id="L38">    template.setOutputEncoding(&quot;UTF-8&quot;);</span>
-<span class="fc" id="L39">    template.process(input, output);</span>
-
-<span class="fc" id="L41">    return output.toString();</span>
+<span class="fc" id="L31">    this.fact.calculFacture();</span>
+<span class="fc" id="L32">    Configuration configuration = _FreeMarkerInitializer.getContext();</span>
+<span class="fc" id="L33">    Map&lt;String, Object&gt; input = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L34">    input.put(&quot;facturation&quot;, this.fact);</span>
+<span class="fc" id="L35">    Writer output = new StringWriter();</span>
+<span class="fc" id="L36">    Template template = configuration.getTemplate(&quot;/htmlPrint.ftl&quot;);</span>
+<span class="fc" id="L37">    template.setOutputEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L38">    template.process(input, output);</span>
+<span class="fc" id="L39">    return output.toString();</span>
   }
 
   private void printClient() {
-<span class="fc" id="L45">    this.sb.append(&quot;Statement for &quot;);</span>
-<span class="fc" id="L46">    this.sb.append(this.invoice.customer);</span>
-<span class="fc" id="L47">    this.sb.append(&quot;\n&quot;);</span>
-<span class="fc" id="L48">  }</span>
+<span class="fc" id="L43">    this.sb.append(&quot;Statement for &quot;);</span>
+<span class="fc" id="L44">    this.sb.append(this.fact.getCustomerName());</span>
+<span class="fc" id="L45">    this.sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L46">  }</span>
   private void printPlayAndPerfAudience() {
-<span class="fc bfc" id="L50" title="All 2 branches covered.">    for(Performance perf : this.invoice.performances) {</span>
-<span class="fc" id="L51">      this.sb.append(&quot;  &quot;);</span>
-<span class="fc" id="L52">      this.sb.append(perf.play.name);</span>
-<span class="fc" id="L53">      this.sb.append(&quot;: &quot;);</span>
-<span class="fc" id="L54">      this.sb.append(this.frmt.format(fact.amounts.get(perf)));</span>
-<span class="fc" id="L55">      this.sb.append(&quot; (&quot;);</span>
-<span class="fc" id="L56">      this.sb.append(perf.audience);</span>
-<span class="fc" id="L57">      this.sb.append(&quot; seats)\n&quot;);</span>
-<span class="fc" id="L58">    }</span>
-<span class="fc" id="L59">  }</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">    for(Performance perf : this.fact.getPerformances()) {</span>
+<span class="fc" id="L49">      this.sb.append(&quot;  &quot;);</span>
+<span class="fc" id="L50">      this.sb.append(perf.play.name);</span>
+<span class="fc" id="L51">      this.sb.append(&quot;: &quot;);</span>
+<span class="fc" id="L52">      this.sb.append(this.frmt.format(fact.amounts.get(perf)));</span>
+<span class="fc" id="L53">      this.sb.append(&quot; (&quot;);</span>
+<span class="fc" id="L54">      this.sb.append(perf.audience);</span>
+<span class="fc" id="L55">      this.sb.append(&quot; seats)\n&quot;);</span>
+<span class="fc" id="L56">    }</span>
+<span class="fc" id="L57">  }</span>
 
   private void printTotalAmountAndCredits() {
-<span class="fc" id="L62">    this.sb.append(&quot;Amount owed is &quot;);</span>
-<span class="fc" id="L63">    this.sb.append(this.frmt.format(fact.totalAmount));</span>
-<span class="fc" id="L64">    this.sb.append(&quot;\n&quot;);</span>
-<span class="fc" id="L65">    this.sb.append(&quot;You earned &quot;);</span>
-<span class="fc" id="L66">    this.sb.append(this.fact.volumeCredits);</span>
-<span class="fc" id="L67">    this.sb.append(&quot; credits\n&quot;);</span>
-<span class="fc" id="L68">  }</span>
+<span class="fc" id="L60">    this.sb.append(&quot;Amount owed is &quot;);</span>
+<span class="fc" id="L61">    this.sb.append(this.frmt.format(fact.getTotalAmount()));</span>
+<span class="fc" id="L62">    this.sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L63">    this.sb.append(&quot;You earned &quot;);</span>
+<span class="fc" id="L64">    this.sb.append(this.fact.getVolumeCredits());</span>
+<span class="fc" id="L65">    this.sb.append(&quot; credits\n&quot;);</span>
+<span class="fc" id="L66">  }</span>
+
+  private void printReduction(){
+<span class="fc bfc" id="L69" title="All 2 branches covered.">    if(this.fact.getWasAvailableForAReduction()) {</span>
+<span class="fc" id="L70">      this.sb.append(&quot;Your credit after the reduction: &quot;);</span>
+<span class="fc" id="L71">      this.sb.append(this.fact.getCustomerCredits());</span>
+<span class="fc" id="L72">      this.sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L73">      this.sb.append(&quot;Amount you really paid: &quot;);</span>
+<span class="fc" id="L74">      this.sb.append(this.frmt.format(fact.getTotalAmountAfterReduction()));</span>
+<span class="fc" id="L75">      this.sb.append(&quot;\n&quot;);</span>
+    } else {
+<span class="fc" id="L77">      this.sb.append(&quot;Your total credits: &quot;);</span>
+<span class="fc" id="L78">      this.sb.append(this.fact.getCustomerCredits());</span>
+<span class="fc" id="L79">      this.sb.append(&quot;\n&quot;);</span>
+    }
+<span class="fc" id="L81">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -2,63 +2,92 @@
 
 public class Facturation {
     private final Invoice invoice;
-    public float totalAmount;
-    public int volumeCredits;
+    private AmountCreditMemoization acm;
+    private ReductionMemoization reducMem;
     public HashMap&lt;Performance, Float&gt; amounts;
 
 <span class="fc" id="L9">    public Facturation(Invoice invoice){</span>
-<span class="fc" id="L10">        this.totalAmount = 0;</span>
-<span class="fc" id="L11">        this.volumeCredits = 0;</span>
-<span class="fc" id="L12">        this.amounts = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L13">        this.invoice = invoice;</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L10">        this.acm = new AmountCreditMemoization();</span>
+<span class="fc" id="L11">        this.amounts = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L12">        this.invoice = invoice;</span>
+<span class="fc" id="L13">    }</span>
 
     public void calculFacture() {
-<span class="fc bfc" id="L17" title="All 2 branches covered.">        for (Performance perf : this.invoice.performances) {</span>
-<span class="fc" id="L18">            Play play = perf.play;</span>
-<span class="fc" id="L19">            float amountForThisPlay = 0;</span>
-<span class="fc bfc" id="L20" title="All 3 branches covered.">            switch (play.type) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (Performance perf : this.invoice.performances) {</span>
+<span class="fc" id="L17">            Play play = perf.play;</span>
+<span class="fc" id="L18">            float amountForThisPlay = 0;</span>
+<span class="fc bfc" id="L19" title="All 3 branches covered.">            switch (play.type) {</span>
                 case TRAGEDY:
-<span class="fc" id="L22">                    amountForThisPlay = 400;</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">                    if (perf.audience &gt; 30) {</span>
-<span class="fc" id="L24">                        amountForThisPlay += 10 * (perf.audience - 30);</span>
+<span class="fc" id="L21">                    amountForThisPlay = 400;</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">                    if (perf.audience &gt; 30) {</span>
+<span class="fc" id="L23">                        amountForThisPlay += 10 * (perf.audience - 30);</span>
                     }
                     break;
                 case COMEDY:
-<span class="fc" id="L28">                    amountForThisPlay = 300;</span>
-<span class="fc bfc" id="L29" title="All 2 branches covered.">                    if (perf.audience &gt; 20) {</span>
-<span class="fc" id="L30">                        amountForThisPlay += 100 + 5 * (perf.audience - 20);</span>
+<span class="fc" id="L27">                    amountForThisPlay = 300;</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">                    if (perf.audience &gt; 20) {</span>
+<span class="fc" id="L29">                        amountForThisPlay += 100 + 5 * (perf.audience - 20);</span>
                     }
-<span class="fc" id="L32">                    amountForThisPlay += 3 * perf.audience;</span>
-<span class="fc" id="L33">                    break;</span>
+<span class="fc" id="L31">                    amountForThisPlay += 3 * perf.audience;</span>
+<span class="fc" id="L32">                    break;</span>
                 default:
-<span class="fc" id="L35">                    throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
+<span class="fc" id="L34">                    throw new Error(&quot;unknown type: ${play.type}&quot;);</span>
             }
             // add volume credits
-<span class="fc" id="L38">            this.volumeCredits += Math.max(perf.audience - 30, 0);</span>
+<span class="fc" id="L37">            this.acm.addVolumeCredit(Math.max(perf.audience - 30, 0));</span>
             // add extra credit for every ten comedy attendees
-<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (Play.Type.COMEDY.equals(play.type)) this.volumeCredits += Math.floor(perf.audience / 5);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (Play.Type.COMEDY.equals(play.type)){</span>
+<span class="fc" id="L40">                int perfCredit = (int) Math.floor((double) perf.audience / 5);</span>
+<span class="fc" id="L41">                this.acm.addVolumeCredit(perfCredit);</span>
+            }
 
-<span class="fc" id="L42">            this.amounts.put(perf, amountForThisPlay);</span>
-<span class="fc" id="L43">            this.totalAmount += amountForThisPlay;</span>
-<span class="fc" id="L44">        }</span>
+<span class="fc" id="L44">            this.amounts.put(perf, amountForThisPlay);</span>
+<span class="fc" id="L45">            this.acm.addTotalAmount(amountForThisPlay);</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        this.invoice.customer.addCredits(this.acm.getVolumeCredits());</span>
+<span class="fc" id="L48">        reductionCalculator();</span>
+<span class="fc" id="L49">    }</span>
 
-<span class="fc" id="L46">    }</span>
+    private void reductionCalculator() {
+<span class="fc" id="L52">        reducMem = new ReductionMemoization(false, this.acm.getTotalAmount());</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if(this.invoice.customer.isAvailableForAReduction()) {</span>
+<span class="fc" id="L54">            reducMem.setWasAvailableForAReduction(true);</span>
+<span class="fc" id="L55">            this.invoice.customer.removeCredits();</span>
+        }
+<span class="fc" id="L57">    }</span>
 
     public Invoice getInvoice() {
-<span class="fc" id="L49">        return invoice;</span>
+<span class="nc" id="L60">        return invoice;</span>
     }
 
     public float getTotalAmount() {
-<span class="fc" id="L53">        return totalAmount;</span>
+<span class="fc" id="L64">        return acm.getTotalAmount();</span>
     }
 
     public int getVolumeCredits() {
-<span class="fc" id="L57">        return volumeCredits;</span>
+<span class="fc" id="L68">        return acm.getVolumeCredits();</span>
     }
 
     public HashMap&lt;Performance, Float&gt; getAmounts() {
-<span class="fc" id="L61">        return amounts;</span>
+<span class="fc" id="L72">        return amounts;</span>
+    }
+    public float getTotalAmountAfterReduction() {
+<span class="fc" id="L75">        return reducMem.getTotalAmountAfterReduction();</span>
+    }
+    public boolean getWasAvailableForAReduction() {
+<span class="fc" id="L78">        return reducMem.isWasAvailableForAReduction();</span>
+    }
+
+    public String getCustomerName() {
+<span class="fc" id="L82">        return this.invoice.customer.getName();</span>
+    }
+
+    public List&lt;Performance&gt; getPerformances() {
+<span class="fc" id="L86">        return this.invoice.performances;</span>
+    }
+
+    public int getCustomerCredits() {
+<span class="fc" id="L90">        return this.invoice.customer.getCredit();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
